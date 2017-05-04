@@ -60,6 +60,7 @@ UKF::UKF() {
   //set vector for weights_
   weights_ = VectorXd(2*n_aug_+1);
   Xsig_pred_ = MatrixXd(n_x_, 2*n_aug_+1);
+  Xsig_pred_.fill(0);
 
   double weight_0 = lambda_/(lambda_ + n_aug_);
   weights_(0) = weight_0;
@@ -154,9 +155,11 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
 void UKF::Prediction(double delta_t) {
   //generate augmented sigma points
   VectorXd x_aug_ = VectorXd(n_aug_);
-  cout << "INIT x_aug_: " << endl << x_aug_ << endl;
+  x_aug_.fill(0);
   MatrixXd Xsig_aug_ = MatrixXd(n_aug_, 2 * n_aug_ + 1);
+  Xsig_aug_.fill(0);
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
+  P_aug_.fill(0);
 
     //create augmented mean state
     x_aug_ << x_,
@@ -255,11 +258,15 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
 
   //create matrix for sigma points in measurement space
   MatrixXd Zsig = MatrixXd(n_z, 2 * n_aug_ + 1);
+  Zsig.fill(0);
   //mean predicted measurement
   VectorXd z_pred = VectorXd(n_z);
+  z_pred.fill(0);
   //measurement covariance matrix S
   MatrixXd S = MatrixXd(n_z,n_z);
+  S.fill(0);
   VectorXd z = VectorXd(n_z);
+  z.fill(0);
 
   // put px and py into z vector
   z << meas_package.raw_measurements_[0], meas_package.raw_measurements_[1];
@@ -300,7 +307,9 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
 
   //create matrix for cross correlation Tc
   MatrixXd Tc = MatrixXd(n_x_, n_z);
+  Tc.fill(0);
   MatrixXd K = MatrixXd(n_x_, n_z);
+  K.fill(0);
 
   //calculate cross correlation matrix
   for(int i = 0; i < Zsig.cols(); i++){
@@ -347,12 +356,16 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   int n_z = 3;
   //create matrix for sigma points in measurement space
   MatrixXd Zsig = MatrixXd(n_z, 2 * n_aug_ + 1);
+  Zsig.fill(0);
   //mean predicted measurement
   VectorXd z_pred = VectorXd(n_z);
+  z_pred.fill(0);
   //measurement covariance matrix S
   MatrixXd S = MatrixXd(n_z,n_z);
+  S.fill(0);
   // actual measurement values
   VectorXd z = VectorXd(n_z);
+  z.fill(0);
 
   // put rho, phi, and rho_dot into z vector
   z << meas_package.raw_measurements_[0], meas_package.raw_measurements_[1], meas_package.raw_measurements_[2];
@@ -400,7 +413,9 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
 
   //create matrix for cross correlation Tc
   MatrixXd Tc = MatrixXd(n_x_, n_z);
+  Tc.fill(0);
   MatrixXd K = MatrixXd(n_x_, n_z);
+  K.fill(0);
 
   //calculate cross correlation matrix
   for(int i = 0; i < Zsig.cols(); i++){
