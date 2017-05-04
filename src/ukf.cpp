@@ -45,11 +45,11 @@ UKF::UKF() {
   // Radar measurement noise standard deviation radius change in m/s
   std_radrd_ = 0.3;
 
-  P_ << 0.3, 0, 0, 0, 0,
-        0, 0.3, 0, 0, 0,
-        0, 0, 0.3, 0, 0,
-        0, 0, 0, 0.3, 0,
-        0, 0, 0, 0, 0.3;
+  P_ << 0.5, 0, 0, 0, 0,
+        0, 0.5, 0, 0, 0,
+        0, 0, 0.5, 0, 0,
+        0, 0, 0, 0.5, 0,
+        0, 0, 0, 0, 0.5;
 
   time_us_ = 0;
   n_x_ = 5;
@@ -448,7 +448,6 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   while (z_diff(1)> M_PI) z_diff(1)-=2.*M_PI;
   while (z_diff(1)<-M_PI) z_diff(1)+=2.*M_PI;
 
-  //TODO: CONVERSION HERE? ISN'T Z IN A DIFFERENT SPACE THAN PX, PY, VX, VY????
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
