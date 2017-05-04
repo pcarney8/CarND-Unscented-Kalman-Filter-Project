@@ -63,6 +63,18 @@ UKF::UKF() {
     weights_(i) = weight;
   }
 
+  P_.fill(0);
+  P_ << 1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
+        0, 0, 0, 0, 1;
+
+//  P_ << 0.005, 0, 0, 0, 0,
+//        0, 0.01, 0, 0, 0,
+//        0, 0, 0.001, 0, 0,
+//        0, 0, 0, 0.02, 0,
+//        0, 0, 0, 0, 0.025;
   /**
   TODO:
 
@@ -117,6 +129,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
       if ( x_[1] < 0.001){
         x_[1] = 0.001;
       }
+
       cout << "px: " << x_[0] << endl;
       cout << "py: " << x_[1] << endl;
       cout << "v: " << x_[2] << endl;
@@ -160,12 +173,7 @@ void UKF::Prediction(double delta_t) {
   Xsig_aug_.fill(0);
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
   P_aug_.fill(0);
-  P_.fill(0);
-  P_ << 0.005, 0, 0, 0, 0,
-        0, 0.01, 0, 0, 0,
-        0, 0, 0.001, 0, 0,
-        0, 0, 0, 0.02, 0,
-        0, 0, 0, 0, 0.025;
+
 
     //create augmented mean state
     x_aug_ << x_,
