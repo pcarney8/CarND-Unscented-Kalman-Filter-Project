@@ -45,12 +45,6 @@ UKF::UKF() {
   // Radar measurement noise standard deviation radius change in m/s
   std_radrd_ = 0.3;
 
-  P_ << 0.5, 0, 0, 0, 0,
-        0, 0.5, 0, 0, 0,
-        0, 0, 0.5, 0, 0,
-        0, 0, 0, 0.5, 0,
-        0, 0, 0, 0, 0.5;
-
   time_us_ = 0;
   n_x_ = 5;
   n_aug_ = 7;
@@ -161,11 +155,11 @@ void UKF::Prediction(double delta_t) {
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
   P_aug_.fill(0);
   P_.fill(0);
-  P_ << 0.5, 0, 0, 0, 0,
-        0, 0.5, 0, 0, 0,
-        0, 0, 0.5, 0, 0,
-        0, 0, 0, 0.5, 0,
-        0, 0, 0, 0, 0.5;
+  P_ << 0.3, 0, 0, 0, 0,
+        0, 0.3, 0, 0, 0,
+        0, 0, 0.3, 0, 0,
+        0, 0, 0, 0.3, 0,
+        0, 0, 0, 0, 0.3;
 
     //create augmented mean state
     x_aug_ << x_,
