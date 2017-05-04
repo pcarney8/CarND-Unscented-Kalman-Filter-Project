@@ -63,18 +63,6 @@ UKF::UKF() {
     weights_(i) = weight;
   }
 
-  P_.fill(0);
-  P_ << 1, 0, 0, 0, 0,
-        0, 1, 0, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 0, 1, 0,
-        0, 0, 0, 0, 1;
-
-//  P_ << 0.005, 0, 0, 0, 0,
-//        0, 0.01, 0, 0, 0,
-//        0, 0, 0.001, 0, 0,
-//        0, 0, 0, 0.02, 0,
-//        0, 0, 0, 0, 0.025;
   /**
   TODO:
 
@@ -98,6 +86,18 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
 
       cout << "Initializing UKF..." << endl;
       time_us_ = meas_package.timestamp_;
+      P_.fill(0);
+      P_ << 1, 0, 0, 0, 0,
+            0, 1, 0, 0, 0,
+            0, 0, 1, 0, 0,
+            0, 0, 0, 1, 0,
+            0, 0, 0, 0, 1;
+
+    //  P_ << 0.005, 0, 0, 0, 0,
+    //        0, 0.01, 0, 0, 0,
+    //        0, 0, 0.001, 0, 0,
+    //        0, 0, 0, 0.02, 0,
+    //        0, 0, 0, 0, 0.025;
 
       if (meas_package.sensor_type_ == MeasurementPackage::RADAR) {
         cout << "first measurement is RADAR" << endl;
