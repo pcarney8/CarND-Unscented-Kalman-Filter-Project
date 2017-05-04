@@ -154,6 +154,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
 void UKF::Prediction(double delta_t) {
   //generate augmented sigma points
   VectorXd x_aug_ = VectorXd(n_aug_);
+  cout << "INIT x_aug_: " << endl << x_aug_ << endl;
   MatrixXd Xsig_aug_ = MatrixXd(n_aug_, 2 * n_aug_ + 1);
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
 
