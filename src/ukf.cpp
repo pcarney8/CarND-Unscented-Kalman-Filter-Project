@@ -224,6 +224,7 @@ void UKF::Prediction(double delta_t) {
 //      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
 
     //predict mean and covariance
+    x_.fill(0);
     for(int i = 0; i < Xsig_pred_.cols(); i++){
       x_ = x_ + weights_(i)*Xsig_pred_.col(i);
     }
