@@ -176,7 +176,7 @@ void UKF::Prediction(double delta_t) {
     P_aug_.topLeftCorner(n_x_, n_x_) = P_;
     P_aug_.bottomRightCorner(2,2) = Q;
 
-    cout << "P_aug_: " << endl << P_aug_ << endl;
+//    cout << "P_aug_: " << endl << P_aug_ << endl;
 
     MatrixXd sqrt_P_aug = P_aug_.llt().matrixL();
     double n_aug_lambda = sqrt(lambda_ + n_aug_);
@@ -216,8 +216,8 @@ void UKF::Prediction(double delta_t) {
 	  Xsig_pred_(3,i) = psi + psi_d*delta_t + dt_2*nu_psidd;
 	  Xsig_pred_(4,i) = psi_d + delta_t*nu_psidd;
 
-      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
   }
+      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
 
     //predict mean and covariance
     for(int i = 0; i < Xsig_pred_.cols(); i++){
