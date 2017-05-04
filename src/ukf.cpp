@@ -156,8 +156,8 @@ void UKF::Prediction(double delta_t) {
   P_.fill(0);
   P_ << 0.015, 0, 0, 0, 0,
         0, 0.02, 0, 0, 0,
-        0, 0, 0.03, 0, 0,
-        0, 0, 0, 0.04, 0,
+        0, 0, 0.02, 0, 0,
+        0, 0, 0, 0.03, 0,
         0, 0, 0, 0, 0.04;
 
     //create augmented mean state
