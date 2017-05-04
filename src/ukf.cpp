@@ -160,6 +160,7 @@ void UKF::Prediction(double delta_t) {
   Xsig_aug_.fill(0);
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
   P_aug_.fill(0);
+  P_.fill(0);
 
     //create augmented mean state
     x_aug_ << x_,
@@ -446,6 +447,7 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   while (z_diff(1)> M_PI) z_diff(1)-=2.*M_PI;
   while (z_diff(1)<-M_PI) z_diff(1)+=2.*M_PI;
 
+  //TODO: CONVERSION HERE? ISN'T Z IN A DIFFERENT SPACE THAN PX, PY, VX, VY????
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
