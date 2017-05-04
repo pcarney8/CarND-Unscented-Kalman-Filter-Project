@@ -139,10 +139,10 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
      *  Update
      ****************************************************************************/
     if(meas_package.sensor_type_ == MeasurementPackage::RADAR){
-        cout << "UPDATE LIDAR!" << endl;
+        cout << "UPDATE RADAR!" << endl;
         UpdateRadar(meas_package);
     } else if (meas_package.sensor_type_ == MeasurementPackage::LASER){
-        cout << "UPDATE RADAR!" << endl;
+        cout << "UPDATE LIDAR!" << endl;
         UpdateLidar(meas_package);
     }
 }
