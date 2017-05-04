@@ -173,7 +173,7 @@ void UKF::Prediction(double delta_t) {
     Q << std_a_*std_a_, 0,
          0, std_yawdd_*std_yawdd_;
 
-    cout << "Q: " << endl << Q << endl;
+//    cout << "Q: " << endl << Q << endl;
 
     //create square root matrix
     P_aug_.topLeftCorner(n_x_, n_x_) = P_;
@@ -220,7 +220,7 @@ void UKF::Prediction(double delta_t) {
 	  Xsig_pred_(4,i) = psi_d + delta_t*nu_psidd;
 
   }
-      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
+//      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
 
     //predict mean and covariance
     for(int i = 0; i < Xsig_pred_.cols(); i++){
@@ -236,6 +236,9 @@ void UKF::Prediction(double delta_t) {
 
       P_ = P_ + weights_(i) * x_diff * x_diff.transpose();
     }
+
+    cout << "prediction step, x: " << endl << x_ << endl;
+    cout << "prediction step, P: " << endl << P_ << endl;
 
 }
 
@@ -328,7 +331,9 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
-//TODO: FINISH CALCULATING NIS
+  cout << "update step, x: " << endl << x_ << endl;
+  cout << "update step, P: " << endl << P_ << endl;
+
   /**
   *calculate NIS
   **/
@@ -444,8 +449,9 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
+  cout << "update step, x: " << endl << x_ << endl;
+  cout << "update step, P: " << endl << P_ << endl;
 
-//TODO: FINISH CALCULATING NIS
   /**
   *calculate NIS
   **/
