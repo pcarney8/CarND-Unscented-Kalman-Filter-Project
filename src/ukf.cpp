@@ -154,11 +154,11 @@ void UKF::Prediction(double delta_t) {
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
   P_aug_.fill(0);
   P_.fill(0);
-  P_ << 0.12, 0, 0, 0, 0,
-        0, 0.12, 0, 0, 0,
+  P_ << 0.11, 0, 0, 0, 0,
+        0, 0.11, 0, 0, 0,
         0, 0, 0.12, 0, 0,
         0, 0, 0, 0.12, 0,
-        0, 0, 0, 0, 0.12;
+        0, 0, 0, 0, 0.13;
 
     //create augmented mean state
     x_aug_ << x_,
