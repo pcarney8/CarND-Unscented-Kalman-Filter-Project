@@ -160,7 +160,7 @@ void UKF::Prediction(double delta_t) {
   Xsig_aug_.fill(0);
   MatrixXd P_aug_ = MatrixXd(n_aug_, n_aug_);
   P_aug_.fill(0);
-  P_.fill(0);
+//  P_.fill(0);
 
     //create augmented mean state
     x_aug_ << x_,
@@ -270,7 +270,6 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
   //measurement covariance matrix S
   MatrixXd S = MatrixXd(n_z,n_z);
   S.fill(0);
-  P_.fill(0);
   VectorXd z = VectorXd(n_z);
   z.fill(0);
 
@@ -371,7 +370,6 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   //measurement covariance matrix S
   MatrixXd S = MatrixXd(n_z,n_z);
   S.fill(0);
-  P_.fill(0);
   // actual measurement values
   VectorXd z = VectorXd(n_z);
   z.fill(0);
