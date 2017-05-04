@@ -242,6 +242,7 @@ void UKF::Prediction(double delta_t) {
       x_ = x_ + weights_(i)*Xsig_pred_.col(i);
     }
 
+    P_.fill(0);
     for(int i = 0; i < Xsig_pred_.cols(); i++){
       // state difference
       VectorXd x_diff = Xsig_pred_.col(i) - x_;
