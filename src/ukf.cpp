@@ -13,7 +13,8 @@ using std::vector;
  */
 UKF::UKF() {
   // if this is false, laser measurements will be ignored (except during init)
-  use_laser_ = true;
+//  use_laser_ = true;
+  use_laser_ = false;
 
   // if this is false, radar measurements will be ignored (except during init)
   use_radar_ = true;
@@ -138,8 +139,10 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
      *  Update
      ****************************************************************************/
     if(meas_package.sensor_type_ == MeasurementPackage::RADAR){
+        cout << "UPDATE LIDAR!" << endl;
         UpdateRadar(meas_package);
     } else if (meas_package.sensor_type_ == MeasurementPackage::LASER){
+        cout << "UPDATE RADAR!" << endl;
         UpdateLidar(meas_package);
     }
 }
@@ -160,20 +163,20 @@ void UKF::Prediction(double delta_t) {
              0,
              0;
 
-//     cout << "x_aug_: " << endl << x_aug_ << endl;
+    cout << "x_aug_: " << endl << x_aug_ << endl;
 
     //create augmented covariance matrix
     MatrixXd Q = MatrixXd(2,2);
     Q << std_a_*std_a_, 0,
          0, std_yawdd_*std_yawdd_;
 
-  //   cout << "Q: " << endl << Q << endl;
+    cout << "Q: " << endl << Q << endl;
 
     //create square root matrix
     P_aug_.topLeftCorner(n_x_, n_x_) = P_;
     P_aug_.bottomRightCorner(2,2) = Q;
 
-  //   cout << "P_aug_: " << endl << P_aug_ << endl;
+    cout << "P_aug_: " << endl << P_aug_ << endl;
 
     MatrixXd sqrt_P_aug = P_aug_.llt().matrixL();
     double n_aug_lambda = sqrt(lambda_ + n_aug_);
@@ -213,7 +216,7 @@ void UKF::Prediction(double delta_t) {
 	  Xsig_pred_(3,i) = psi + psi_d*delta_t + dt_2*nu_psidd;
 	  Xsig_pred_(4,i) = psi_d + delta_t*nu_psidd;
 
-//      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
+      cout << "Xsig_pred_: " << endl << Xsig_pred_ << endl;
   }
 
     //predict mean and covariance
@@ -321,11 +324,9 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
   *calculate NIS
   **/
 
-  VectorXd e = z_diff.transpose() * S.inverse() * z_diff;
+  NIS_laser_ = z_diff.transpose() * S.inverse() * z_diff;
 
   cout << "LIDAR NIS: " << endl << e << endl;
-
-//  NIS_lidar_ = e[0];
 
 }
 
@@ -434,9 +435,8 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   *calculate NIS
   **/
 
-  VectorXd e = z_diff.transpose() * S.inverse() * z_diff;
+  NIS_radar_ = z_diff.transpose() * S.inverse() * z_diff;
 
   cout << "RADAR NIS: " << endl << e << endl;
 
-//  NIS_radar_ = e[0];
 }
