@@ -107,9 +107,16 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
         */
         cout << "first measurement is LIDAR" << endl;
 
-        x_ << meas_package.raw_measurements_[0], meas_package.raw_measurements_[1], 5, 0, 0;
+        x_ << meas_package.raw_measurements_[0], meas_package.raw_measurements_[1], 0, 0, 0;
       }
 
+      if (x_[0] < 0.001){
+        x_[0] = 0.001;
+      }
+
+      if ( x_[1] < 0.001){
+        x_[1] = 0.001;
+      }
       cout << "px: " << x_[0] << endl;
       cout << "py: " << x_[1] << endl;
       cout << "v: " << x_[2] << endl;
