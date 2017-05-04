@@ -98,7 +98,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
         float px = rho * cos(phi);
         float py = rho * sin(phi);
 
-        x_ << px, py, 5, 0, 0;
+        x_ << px, py, 0, 0, 0;
 
       }
       else if (meas_package.sensor_type_ == MeasurementPackage::LASER) {
