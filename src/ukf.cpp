@@ -132,7 +132,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
      ****************************************************************************/
     float dt = (meas_package.timestamp_ - time_us_) / 1000000.0;	//dt - expressed in seconds
     time_us_ = meas_package.timestamp_;
-    cout << "compute the time elapsed between the current and previous measurements, dt: " << dt << endl;
+//    cout << "compute the time elapsed between the current and previous measurements, dt: " << dt << endl;
 
     Prediction(dt);
     /*****************************************************************************
@@ -167,7 +167,7 @@ void UKF::Prediction(double delta_t) {
              0,
              0;
 
-    cout << "x_aug_: " << endl << x_aug_ << endl;
+//    cout << "x_aug_: " << endl << x_aug_ << endl;
 
     //create augmented covariance matrix
     MatrixXd Q = MatrixXd(2,2);
