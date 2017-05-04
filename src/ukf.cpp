@@ -45,11 +45,11 @@ UKF::UKF() {
   // Radar measurement noise standard deviation radius change in m/s
   std_radrd_ = 0.3;
 
-  P_ << 1, 0, 0, 0, 0,
-        0, 1, 0, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 0, 1, 0,
-        0, 0, 0, 0, 1;
+  P_ << 0.5, 0, 0, 0, 0,
+        0, 0.5, 0, 0, 0,
+        0, 0, 0.5, 0, 0,
+        0, 0, 0, 0.5, 0,
+        0, 0, 0, 0, 0.5;
 
   time_us_ = 0;
   n_x_ = 5;
