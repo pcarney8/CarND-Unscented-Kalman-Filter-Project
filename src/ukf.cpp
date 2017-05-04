@@ -221,7 +221,7 @@ void UKF::Prediction(double delta_t) {
 
       double dt_2 = 0.5*delta_t*delta_t;
 
-      if(psi_d == 0){
+      if(psi_d < 0.001){
           Xsig_pred_(0,i) = p_x + v*cos(psi)*delta_t + dt_2*cos(psi)*nu_a;
           Xsig_pred_(1,i) = p_y + v*sin(psi)*delta_t + dt_2*sin(psi)*nu_a;
       } else {
